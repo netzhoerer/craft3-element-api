@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+</head>
+<body>
+{% set newsEntries = craft.entries({section: 'news'}) %}
+
+{% block main %}
+    {% for entry in newsEntries %}
+        <h2>{{ entry.title }}</h2>
+        <p>{{ entry.summary }}</p>
+        <p>{{ entry.body }}</p>
+        <p>{{ entry.test }}</p>
+        <p>{{ entry.test2 }}</p>
+        <a href="{{ entry.url }}">{{ entry.title }}</a>
+        <div><time>{{ entry.dateUpdated.date|date("d.m.Y") }}</time></div>
+        {% set author = entry.author %}
+        <div>{{ author.name }}: <a href="mailto:{{ author.email }}">{{ author.email }}</a></div>
+    {% endfor %}
+
+{% endblock %}
