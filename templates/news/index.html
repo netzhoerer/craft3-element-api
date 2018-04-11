@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/css-type-base@1.0.2/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.14.0/themes/prism-tomorrow.min.css">
+    <style>
+    </style>
 </head>
 <body>
 {% set newsEntries = craft.entries({section: 'news'}) %}
@@ -16,6 +20,17 @@
         <div><time>{{ entry.dateUpdated.date|date("d.m.Y") }}</time></div>
         {% set author = entry.author %}
         <div>{{ author.name }}: <a href="mailto:{{ author.email }}">{{ author.email }}</a></div>
+        <div id="entry_{{ entry.id }}"></div>
     {% endfor %}
 
 {% endblock %}
+<script>
+    fetch('/all.json')
+    .then(response => response.json())
+    .then(jsonData => {
+      jsonData.data.forEach(data => {
+            document.getElementById(`entry_${data._id}`).innerHTML = `<pre class="language-json"><code class="language-json">${JSON.stringify(data, null, '\t').toString()}</code></pre>`;
+        })
+    })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.14.0/prism.min.js"></script>

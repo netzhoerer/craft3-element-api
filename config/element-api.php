@@ -9,12 +9,12 @@ return [
             'elementType' => Entry::class,
             'criteria' => ['section' => 'news'],
             'transformer' => function (Entry $entry) {
-                var_dump($entry);
                 return [
                     'title' => $entry->title,
                     'url' => $entry->url,
                     'jsonUrl' => UrlHelper::url("news/{$entry->id}.json"),
                     'summary' => $entry->summary,
+                    '_id' => $entry->id,
                 ];
             },
         ],
@@ -26,7 +26,7 @@ return [
                 foreach ($entry as $key => $value) {
                     $output[$key] = $value;
                 }
-//                $output['jsonUrl'] = UrlHelper::url("news/{$entry->id}.json");
+                $output['_id'] = $entry->id;
                 $output['jsonUrl'] = UrlHelper::url("news/{$entry->slug}.json");
                 return $output;
             },
