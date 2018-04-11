@@ -1,0 +1,8 @@
+
+RewriteEngine On
+RewriteBase /web
+RewriteOptions InheritDown
+
+
+
+
